@@ -110,8 +110,6 @@ colnames(pool3) = c('case','ctrl','fc','r1','r2','p')
 pool3$q = p.adjust(pool3$p)
 #
 # TT001, multifocal 
-dat673   = readRDS('/public/workspace/lily/PS/tiantan/P673_jc.RDS')
-dat689   = readRDS('/public/workspace/lily/PS/tiantan/P689.RDS')
 dat673   = readRDS('/public/workspace/lily/PS/P673_jc.RDS')
 dat689   = readRDS('/public/workspace/lily/PS/P689.RDS')
 dat673.t = subset(dat673,cells=which(dat673$seurat_clusters %in% c(3,5)))
@@ -138,8 +136,6 @@ colnames(pool6) = c('case','ctrl','fc','r1','r2','p')
 pool6$q = p.adjust(pool6$p)
 #
 # TT002, multifocal 
-dat912L = readRDS('/public/workspace/lily/PS/tiantan/P912.L.RDS')
-dat912R = readRDS('/public/workspace/lily/PS/tiantan/P912.R.RDS')
 dat912L = readRDS('/public/workspace/lily/PS/P912.L.RDS')
 dat912R = readRDS('/public/workspace/lily/PS/P912.R.RDS')
 dat912L.t = subset(dat912L,cells=which(dat912L$seurat_clusters %in% c(1,3,4,8,9)))
@@ -171,12 +167,6 @@ h3 = readRDS('10XT1H3.RDS')
 h4 = readRDS('10XT1H4.RDS')
 mat3 = as.matrix(h3[['RNA']]@data)
 mat4 = as.matrix(h4[['RNA']]@data)
-apply(mat3[c('PTPRC','SOX2','EGFR','CDH5','COL1A1','CD3D','FCGR1A','MAG'),],1,function(x){
-  tapply(x,h3$seurat_clusters,mean)
-})
-apply(mat4[c('PTPRC','SOX2','EGFR','CDH5','COL1A1','CD3D','FCGR1A','MAG'),],1,function(x){
-  tapply(x,h4$seurat_clusters,mean)
-})
 h3$celltype = NA
 h3$celltype[which(h3$seurat_clusters %in% c(0,1,2,3,4,5,7,8,9,11,12,14,15,20))] = 'malignant'
 h3$celltype[which(h3$seurat_clusters %in% c(10,13,16,19))] = 'myeloid'
@@ -308,7 +298,7 @@ final.sig = intersect(final.sig,rownames(sigs7))
 length(final.sig)
 intrinsicGene = read.table('intrinsicGliomaGene.txt',header=T,sep='\t') # Wang et al., Cancer cell, 2017
 final.sig = intersect(final.sig,intrinsicGene$Gene_Symbol)
-mod.generate(final.sig,'p2PSup211216test',out='p2PSup211216test.mod')
+mod.generate(final.sig,'NES',out='NES.mod')
 
 
 
