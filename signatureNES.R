@@ -1,3 +1,5 @@
+#!/usr/bin/Rscript
+
 library(Seurat)
 #
 # NJ01, multifocal
